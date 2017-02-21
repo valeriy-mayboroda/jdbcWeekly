@@ -19,17 +19,41 @@ public class Main {
         Connection connection = db.getConnection(URL, USERNAME, PASSWORD);
 
         BufferedReader reader = new BufferedReader (new InputStreamReader(System.in));
+        System.out.println("1 - Вывод списка всех пользователей");
+        System.out.println("2 - Вывод списка дел, встреч всех пользователей");
+        System.out.println("3 - Вывод списка дел, встреч пользователя по id пользователя");
+        System.out.println("4 - Добавить нового пользователя");
+        System.out.println("5 - Добавить новое дело, встречу");
+        System.out.println("6 - Удалить дело, встречу по id дела, встречи");
+        System.out.println("7 - Удалить пользователя по id пользователя с удалением всех его дел, встреч");
+
         int number = Integer.parseInt(reader.readLine());
+
         if (number == 1) {
-            Meeting.print(connection);
+            User.printUser(connection);
         }
         else if (number == 2) {
-        Meeting.add(connection);
+            Meeting.printMeeting(connection);
         }
         else if (number == 3) {
-            System.out.print("Удалить встречу № ");
+            System.out.print("Вывести список дел, встреч пользователя № ");
+            Meeting.printMeeting(connection, Integer.parseInt(reader.readLine()));
+        }
+        else if (number == 4) {
+            User.addUser(connection);
+        }
+        else if (number == 5) {
+            Meeting.addMeting(connection);
+        }
+        else if (number == 6) {
+            System.out.print("Удалить дело, встречу № ");
             int id = Integer.parseInt(reader.readLine());
-            Meeting.delete(connection, id);
+            Meeting.deleteMeeting(connection, id);
+        }
+        else if (number == 7) {
+            System.out.print("Удалить пользователя № (с удалением его всех дел, встреч) ");
+            int id = Integer.parseInt(reader.readLine());
+            User.deleteUser(connection, id);
         }
         reader.close();
         connection.close();

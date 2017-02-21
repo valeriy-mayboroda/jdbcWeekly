@@ -1,0 +1,13 @@
+CREATE TABLE databaseweekly.user (
+  `id` INT(10) NOT NULL AUTO_INCREMENT,
+  `firstname` VARCHAR(45) NULL,
+  `lastname` VARCHAR(45) NULL,
+  `age` INT(3) NULL,
+  `mail` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`)
+  )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+/*DROP TABLE IF EXISTS databaseweekly.meeting;
+  DROP TABLE IF EXISTS databaseweekly.user;*/
