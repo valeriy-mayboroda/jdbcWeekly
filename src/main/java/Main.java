@@ -28,32 +28,32 @@ public class Main {
         System.out.println("7 - Удалить пользователя по id пользователя с удалением всех его дел, встреч");
 
         int number = Integer.parseInt(reader.readLine());
-
+        Service service = new Service();
         if (number == 1) {
-            User.printUser(connection);
+            service.printUsers(connection);
         }
         else if (number == 2) {
-            Meeting.printMeeting(connection);
+            service.printMeetings(connection);
         }
         else if (number == 3) {
             System.out.print("Вывести список дел, встреч пользователя № ");
-            Meeting.printMeeting(connection, Integer.parseInt(reader.readLine()));
+            service.printMeetings(connection, Integer.parseInt(reader.readLine()));
         }
         else if (number == 4) {
-            User.addUser(connection);
+            service.addUser(connection);
         }
         else if (number == 5) {
-            Meeting.addMeting(connection);
+            service.addMeting(connection);
         }
         else if (number == 6) {
             System.out.print("Удалить дело, встречу № ");
             int id = Integer.parseInt(reader.readLine());
-            Meeting.deleteMeeting(connection, id);
+            service.deleteMeeting(connection, id);
         }
         else if (number == 7) {
             System.out.print("Удалить пользователя № (с удалением его всех дел, встреч) ");
             int id = Integer.parseInt(reader.readLine());
-            User.deleteUser(connection, id);
+            service.deleteUser(connection, id);
         }
         reader.close();
         connection.close();
