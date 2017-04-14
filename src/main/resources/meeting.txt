@@ -1,6 +1,5 @@
 CREATE TABLE databaseweekly.meeting (
   `id` INT(10) NOT NULL AUTO_INCREMENT,
-  `user` VARCHAR(45) NULL,
   `name` VARCHAR(45) NULL,
   `date` DATE NULL,
   `time` TIME NULL,
