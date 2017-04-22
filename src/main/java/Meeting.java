@@ -51,8 +51,8 @@ public class Meeting {
     public boolean delete(Connection connection) {
         String querry = "delete from databaseweekly.meeting where id=" + getId();
         int sum = 0;
-        try (Statement statement = connection.createStatement()) {
-            sum = statement.executeUpdate(querry);
+        try (PreparedStatement ps = connection.prepareStatement(querry)) {
+            sum = ps.executeUpdate();
         }
         catch(SQLException e) {
             System.out.println("Data deleting from table Meeting mistake");

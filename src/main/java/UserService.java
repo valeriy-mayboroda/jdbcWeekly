@@ -55,17 +55,14 @@ public class UserService {
         return user;
     }
     public boolean deleteUser(Connection connection, int number) {
-        MeetingService meetingservice = new MeetingService();
-        ArrayList<Meeting> list = meetingservice.getMeetingsList(connection);
-        for (Meeting meeting: list) {
-            if (meeting.getUserId() == number) {
-                meetingservice.deleteMeeting(connection, meeting.getId());
-            }
-        }
         ArrayList<User> users = getUsersList(connection);
         for (User user : users) {
-            if (user.getId() == number)
+            if (user.getId() == number) {
+                for (Meeting meeting : user.getMeetings(connection)) {
+                    meeting.delete(connection);
+                }
                 return user.delete(connection);
+            }
         }
         return false;
     }

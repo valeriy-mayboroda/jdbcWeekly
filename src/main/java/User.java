@@ -1,4 +1,7 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by val on 13.02.2017.
  */
@@ -8,6 +11,7 @@ public class User {
     private String lastname;
     private int age;
     private String mail;
+    private List<Meeting> meetings;
 
     public User() {}
 
@@ -46,13 +50,35 @@ public class User {
     public boolean delete(Connection connection) {
         String querry = "delete from databaseweekly.user where id=" + getId();
         int sum = 0;
-        try (Statement statement = connection.createStatement()) {
-            sum = statement.executeUpdate(querry);
+        try (PreparedStatement ps = connection.prepareStatement(querry)) {
+            sum = ps.executeUpdate(querry);
         }
         catch(SQLException e) {
             System.out.println("Data deleting from table User mistake");
         }
         return sum == 1;
+    }
+
+    public List<Meeting> getMeetings(Connection connection) {
+        ArrayList<Meeting> result = new ArrayList();
+        String querry = "select * from databaseweekly.meeting where userId =" + getId();
+        try(PreparedStatement ps = connection.prepareStatement(querry)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Meeting meeting = new Meeting();
+                meeting.setId(rs.getInt("id"));
+                meeting.setName(rs.getString("name"));
+                meeting.setDate(rs.getDate("date"));
+                meeting.setTime(rs.getTime("time"));
+                meeting.setDetails(rs.getString("details"));
+                meeting.setUserId(rs.getInt("userId"));
+                result.add(meeting);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("Data reeding from table Meeting mistake");
+        }
+        return result;
     }
 
     @Override
